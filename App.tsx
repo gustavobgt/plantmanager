@@ -1,9 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Welcome } from './src/pages/Welcome';
+import AppLoading from 'expo-app-loading';
+
+import Confirmation from './src/pages/Confirmation';
+import {
+  useFonts,
+  Jost_400Regular,
+  Jost_600SemiBold,
+} from '@expo-google-fonts/jost';
 
 const App = () => {
-  return <Welcome />;
+  const [fontsLoaded] = useFonts({
+    Jost_400Regular,
+    Jost_600SemiBold,
+  });
+
+  if (!fontsLoaded) return <AppLoading />;
+
+  return <Confirmation />;
 };
 
 export default App;
