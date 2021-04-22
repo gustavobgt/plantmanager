@@ -20,7 +20,7 @@ const Confirmation = () => {
         </Text>
 
         <View style={styles.buttonContainer}>
-          <Button>Confirmar</Button>
+          <Button>Começar</Button>
         </View>
       </View>
     </SafeAreaView>

@@ -7,7 +7,11 @@ import {
   TextInput,
   StyleSheet,
   Platform,
+  Keyboard,
 } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/core';
+
 import { Button } from '../components';
 import { colors, fonts } from '../styles';
 
@@ -15,6 +19,12 @@ const UserIdentification = () => {
   const [isFocused, setIsFocused] = React.useState(false);
   const [isFilled, setIsFilled] = React.useState(false);
   const [name, setName] = React.useState('');
+
+  const navigation = useNavigation();
+
+  const handleSubmit = (): void => {
+    navigation.navigate('Confirmation');
+  };
 
   const handleInputBlur = (): void => {
     setIsFocused(false);
@@ -36,33 +46,35 @@ const UserIdentification = () => {
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={styles.content}>
-          <View style={styles.form}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.emoji}>{isFilled ? '😃' : '🙂'}</Text>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.content}>
+            <View style={styles.form}>
+              <View style={styles.titleContainer}>
+                <Text style={styles.emoji}>{isFilled ? '😃' : '🙂'}</Text>
 
-              <Text style={styles.title}>
-                Como podemos {'\n'}
-                chamar você?
-              </Text>
-            </View>
+                <Text style={styles.title}>
+                  Como podemos {'\n'}
+                  chamar você?
+                </Text>
+              </View>
 
-            <TextInput
-              style={[
-                styles.input,
-                (isFocused || isFilled) && { borderColor: colors.green },
-              ]}
-              placeholder="Digite um nome"
-              onBlur={handleInputBlur}
-              onFocus={handleInputFocus}
-              onChangeText={handleInputChange}
-            />
+              <TextInput
+                style={[
+                  styles.input,
+                  (isFocused || isFilled) && { borderColor: colors.green },
+                ]}
+                placeholder="Digite um nome"
+                onBlur={handleInputBlur}
+                onFocus={handleInputFocus}
+                onChangeText={handleInputChange}
+              />
 
-            <View style={styles.buttonContainer}>
-              <Button>Confirmar</Button>
+              <View style={styles.buttonContainer}>
+                <Button onPress={handleSubmit}>Confirmar</Button>
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

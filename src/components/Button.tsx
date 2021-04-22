@@ -8,7 +8,10 @@ import {
 
 import { colors, fonts } from '../styles';
 
-export const Button: React.FC = ({ children, ...rest }) => {
+export const Button: React.FC<TouchableOpacityProps> = ({
+  children,
+  ...rest
+}) => {
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.7}>
       <Text style={styles.text} {...rest}>
